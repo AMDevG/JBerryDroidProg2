@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         buttonText = b.getText().toString();
 
         if (b.getText().equals("c")){
-            System.out.println("Got clear");
             returnSum = 0;
             numbersArrayStr = new String[numbersArrayStr.length];
             calcScreen.setText("");
