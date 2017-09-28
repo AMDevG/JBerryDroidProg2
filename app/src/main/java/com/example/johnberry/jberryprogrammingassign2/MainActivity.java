@@ -62,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
             newTextToDisplay = currentScreenText + buttonText;
             calcScreen.setText(newTextToDisplay);
         }
+
+        else if ((equalLastPush && buttonText.equals("+"))){
+            newTextToDisplay = currentScreenText + buttonText;
+            calcScreen.setText(newTextToDisplay);
+            equalLastPush = false;
+        }
+
         else{
             newTextToDisplay = buttonText;
             calcScreen.setText(newTextToDisplay);
