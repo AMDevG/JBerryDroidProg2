@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private String newTextToDisplay;
     private int returnSum = 0;
     private String[] numbersArrayStr;
+    private boolean equalLastPush = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         currentScreenText = calcScreen.getText().toString();
         buttonText = b.getText().toString();
-
-        // Need to parse for illegal data (i.e. +/= on blank screen or following each other
 
         if (b.getText().equals("c")){
             System.out.println("Got clear");
@@ -44,10 +43,31 @@ public class MainActivity extends AppCompatActivity {
              returnSum = returnSum + Integer.parseInt(n);
             }
             calcScreen.setText(Integer.toString(returnSum));
+            equalLastPush = true;
+            returnSum = 0;
         }
-        else {
+
+        else if((buttonText.equals("+")&& currentScreenText.contains("+"))){
+
+            currentScreenText = currentScreenText.replaceAll("\\s+","");
+            numbersArrayStr = currentScreenText.split("\\+");
+            for (String n : numbersArrayStr) {
+                returnSum = returnSum + Integer.parseInt(n);
+            }
+            calcScreen.setText(Integer.toString(returnSum));
+            returnSum = 0;
+        }
+
+        else if ((!buttonText.equals("=") && !equalLastPush)){
             newTextToDisplay = currentScreenText + buttonText;
             calcScreen.setText(newTextToDisplay);
+        }
+        else{
+            newTextToDisplay = buttonText;
+            calcScreen.setText(newTextToDisplay);
+            equalLastPush = false;
+            returnSum = 0;
+            numbersArrayStr = new String[numbersArrayStr.length];
         }
     }
 }
